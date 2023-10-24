@@ -12,7 +12,7 @@ export default function Home() {
         speed: 0.5,
     });
     let aboutMe = useParallax<HTMLHeadingElement>({
-        speed: -7,
+        speed: -6,
     });
     // use ref for the home content
     return (
