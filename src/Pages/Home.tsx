@@ -1,6 +1,7 @@
 import { useParallax } from "react-scroll-parallax"
 import constructionBarrier from "../assets/construction barrier.png";
 import constructionMan from "../assets/construction man.png";
+import sunglassEmoji from "../assets/sungless emoji.png";
 
 export default function Home() {
     const parallax = useParallax<HTMLDivElement>({
@@ -12,7 +13,7 @@ export default function Home() {
         speed: 0.5,
     });
     let aboutMe = useParallax<HTMLHeadingElement>({
-        speed: -6,
+        speed: -10,
     });
     // use ref for the home content
     return (
@@ -42,16 +43,26 @@ export default function Home() {
                     About <span className="text-accent-light dark:text-accent-dark">Me</span>
                 </h1>
                 <div>
-                    I am a pationate developer who loves to <span className="text-accent-light dark:text-accent-dark">create</span> and <span className="text-accent-light dark:text-accent-dark">learn</span>.
-                    I am pationate about <span className="text-accent-light dark:text-accent-dark">life long learning</span> and exploring new technology.
+                    I am a pationate full-stack developer who loves to <span className="text-accent-light dark:text-accent-dark text-lg">create</span> and <span className="text-accent-light dark:text-accent-dark text-lg">learn</span>.
+                    I am pationate about <span className="text-accent-light dark:text-accent-dark text-lg">life long learning</span> and exploring new technology.
+                    Alongside learning, I also enjoy <span className="text-accent-light dark:text-accent-dark text-lg">helping</span> others by teaching them what I know when I can.
                 </div>
                 <div>
-                    My hobbies include <span className="text-accent-light dark:text-accent-dark">gaming</span>, <span className="text-accent-light dark:text-accent-dark">coding</span>, and <span className="text-accent-light dark:text-accent-dark">keeping my dog occupied</span>.
+                    My hobbies include <span className="text-accent-light dark:text-accent-dark text-lg">gaming</span>, <span className="text-accent-light dark:text-accent-dark text-lg">coding</span>, and <span className="text-accent-light dark:text-accent-dark text-lg">keeping my dog occupied</span>.
+                    Recently I've been focused on brushing up my fundimentals with <span className="text-accent-light dark:text-accent-dark text-lg">LeetCode</span> and <span className="text-accent-light dark:text-accent-dark text-lg">CodeSignal</span>.
                 </div>
-                <div className="md:col-span-2 w-full flex flex-row gap-2">
-                    <div className="text-text-light dark:text-text-dark">
-                        I am currently working on <span className="text-accent-light dark:text-accent-dark">Freighter</span> and <span className="text-accent-light dark:text-accent-dark">a discord bot</span>.
-                        I am currently learning <span className="text-accent-light dark:text-accent-dark">React</span> and <span className="text-accent-light dark:text-accent-dark">Typescript</span>.
+                <div>
+                    <img src={sunglassEmoji} alt="sunglass emoji" className="w-1/4 h-1/4 mx-auto" />
+                </div>
+
+                <div className="md:col-span-2 w-full flex flex-row justify-center pb-10">
+                    <div className="text-text-light dark:text-text-dark text-center">
+                        <h2 className="text-text-light dark:text-text-dark text-2xl md:text-4xl pb-5">
+                            What am I working on Now?
+                        </h2>
+                        My current project is called <span className="text-accent-light dark:text-accent-dark text-xl">Freighter</span>, a game server hosting platform that has a usage based payment plan.
+                        More information can be found in my blog post <a className="underline underline-offset-4 text-accent-light dark:text-accent-dark text-xl" href="https://hackernoon.com/dev-log-1-introducing-freighter" target="_blank">here</a>.
+                        You can also read more about it in the blog on this site as well as the <span className="underline underline-offset-4 text-accent-light dark:text-accent-dark text-xl">Projects</span> section (once it gets added that is 👍).
                     </div>
                 </div>
             </div>
