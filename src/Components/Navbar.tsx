@@ -9,17 +9,17 @@ export default function NavbarWrapper() {
 
     const authButton = isAuthenticated == true
         ? <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => logout()}>Logout</button>
-        : <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => loginWithRedirect()}>Login</button>;
+        : <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100  hidden sm:block" onClick={() => loginWithRedirect()}>Login</button>;
 
     return (
         <Fragment>
-            <div className="flex justify-between px-5 pt-3">
+            <div className="flex flex-col sm:flex-row justify-between px-5 pt-3">
                 <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => {
                     navigate('/');
                 }}>
                     Steven Johnson
                 </button>
-                <div className="flex justify-between flex-col sm:flex-row gap-1 sm:gap-10">
+                <div className="flex justify-between md:flex-row gap-2 md:gap-7 lg:gap-10">
                     <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => {
                         navigate('/');
                         document.getElementById("about")?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -30,6 +30,11 @@ export default function NavbarWrapper() {
                         navigate('/projects');
                     }}>
                         Projects
+                    </button>
+                    <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => {
+                        navigate('/blog')
+                    }}>
+                        Blog
                     </button>
                     <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => {
                         navigate('/contact');
