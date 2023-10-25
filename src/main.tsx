@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, createHashRouter } from 'react-router-dom'
 import Home from './Pages/Home.tsx'
 import NavbarWrapper from './Components/Navbar.tsx';
 import './index.css';
@@ -8,7 +8,7 @@ import NotFound from './Pages/404.tsx';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { ParallaxProvider } from 'react-scroll-parallax';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
         path: '/',
         element: <NavbarWrapper />,
