@@ -4,7 +4,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 export default function NavbarWrapper() {
     const { loginWithRedirect, isAuthenticated, logout, isLoading } = useAuth0();
-    console.log(isAuthenticated)
     const navigate = useNavigate();
 
     const authButton = isAuthenticated == true
@@ -27,19 +26,20 @@ export default function NavbarWrapper() {
                         About
                     </button>
                     <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => {
-                        navigate('/projects');
+                        navigate('/');
+                        document.getElementById("projects")?.scrollIntoView({behavior: "smooth", block: "start"})
                     }}>
                         Projects
-                    </button>
-                    <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => {
-                        navigate('/blog')
-                    }}>
-                        Blog
                     </button>
                     <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => {
                         navigate('/contact');
                     }}>
                         Contact
+                    </button>
+                    <button className="hover:text-accent-light dark:hover:text-accent-dark transition-colors duration-100" onClick={() => {
+                        navigate('/blog')
+                    }}>
+                        Blog
                     </button>
                     {isLoading ? <div>loading...</div> : authButton}
                 </div>
