@@ -1,7 +1,4 @@
 import { useParallax } from "react-scroll-parallax"
-import constructionBarrier from "../assets/construction barrier.png";
-import constructionMan from "../assets/construction man.png";
-import sunglassEmoji from "../assets/sungless emoji.png";
 import ffga from "../assets/FFGA.png";
 
 export interface Resource {
