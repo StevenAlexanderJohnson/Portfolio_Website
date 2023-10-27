@@ -133,6 +133,38 @@ export default function Home() {
                     }
                 </ul>
             </div>
+            <div className="w-5/6 mx-auto min-h-full py-10" >
+                <h2 className="text-text-light dark:text-text-dark text-4xl md:text-6xl text-center" id="contact">
+                    Contact <span className="text-accent-light dark:text-accent-dark">Me</span>
+                </h2>
+                <p className="text-center">
+                    <span>
+                        The contact form is still under construction. If you would like to contact me, please reach out through <a href="https://linkedin.com/in/steven-alexander-johnson" target="_blank" className="underline underline-offset-4 text-accent-light dark:text-accent-dark text-xl">LinkedIn</a>.
+                    </span>
+                </p>
+                <p className="text-text-light dark:text-text-dark text-center text-lg md:text-xl py-5">
+                    <span className="line-through">
+                        If you would like to contact me, please fill out the form below.
+                    </span>
+                </p>
+                <form className="flex flex-col gap-5 w-5/6 md:w-1/2 mx-auto">
+                    <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
+                        Name
+                    </label>
+                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="text" disabled />
+                    <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
+                        Email
+                    </label>
+                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="email" disabled />
+                    <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
+                        Message
+                    </label>
+                    <textarea className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" disabled />
+                    <button className="text-text-light dark:text-text-dark text-xl md:text-2xl disabled:text-slate-600 bg-accent-light/75 dark:bg-accent-dark/75 rounded-lg p-2 hover:cursor-not-allowed" disabled>
+                        Submit
+                    </button>
+                </form>
+            </div>
         </>
     )
 }
