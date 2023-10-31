@@ -15,6 +15,7 @@ export default function Home() {
     const [contactEmail, setContactEmail] = useState('');
     const [contactMessage, setContactMessage] = useState('');
     const [sendingEmail, setSendingEmail] = useState(false);
+    const [disableInputs, setDisableInputs] = useState(false);
 
     const parallax = useParallax<HTMLDivElement>({
         startScroll: 0,
@@ -30,6 +31,7 @@ export default function Home() {
     const submitEmailInfo = (e: FormEvent) => {
         e.preventDefault();
         setSendingEmail(true);
+        setDisableInputs(true);
         fetch('https://m7yijzqcz3.execute-api.us-east-1.amazonaws.com/Prod/email', {
             method: 'POST',
             headers: {
@@ -177,18 +179,24 @@ export default function Home() {
                     <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
                         Name
                     </label>
-                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="text" onChange={(e) => setContactName(e.target.value)} />
+                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="text" onChange={(e) => setContactName(e.target.value)} disabled={disableInputs} />
                     <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
                         Email
                     </label>
-                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="email" onChange={(e) => setContactEmail(e.target.value)} />
+                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="email" onChange={(e) => setContactEmail(e.target.value)} disabled={disableInputs} />
                     <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
                         Message
                     </label>
-                    <textarea className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" onChange={(e) => setContactMessage(e.target.value)} />
-                    <button className="text-text-dark text-xl md:text-2xl disabled:text-slate-600 disabled:bg-accent-light/75 disabled:animate-bounce bg-accent-light dark:bg-accent-dark/75 rounded-lg p-2" disabled={sendingEmail}>
-                        Submit
-                    </button>
+                    <textarea className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" onChange={(e) => setContactMessage(e.target.value)} disabled={disableInputs} />
+                    {disableInputs ?
+                        <button className="text-text-dark text-xl md:text-2xl disabled:text-slate-600 disabled:bg-accent-light/75 bg-accent-light dark:bg-accent-dark/75 rounded-lg p-2" disabled>
+                            Submit
+                        </button>
+                        :
+                        <button className="text-text-dark text-xl md:text-2xl disabled:text-slate-600 disabled:bg-accent-light/75 disabled:animate-bounce bg-accent-light dark:bg-accent-dark/75 rounded-lg p-2" disabled={sendingEmail}>
+                            Submit
+                        </button>
+                    }
                 </form>
             </div>
         </>
