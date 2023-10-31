@@ -14,7 +14,7 @@ export default function Home() {
     const [contactName, setContactName] = useState('');
     const [contactEmail, setContactEmail] = useState('');
     const [contactMessage, setContactMessage] = useState('');
-    const [sendingEmail, setSendingEmail] = useState(false);
+    const [emailSent, setEmailSent] = useState(false);
     const [disableInputs, setDisableInputs] = useState(false);
 
     const parallax = useParallax<HTMLDivElement>({
@@ -30,7 +30,6 @@ export default function Home() {
 
     const submitEmailInfo = (e: FormEvent) => {
         e.preventDefault();
-        setSendingEmail(true);
         setDisableInputs(true);
         fetch('https://m7yijzqcz3.execute-api.us-east-1.amazonaws.com/Prod/email', {
             method: 'POST',
@@ -46,7 +45,7 @@ export default function Home() {
             if (!response.ok) {
                 throw new Error("Error sending email");
             }
-            setSendingEmail(false);
+            setEmailSent(true);
             alert("The email has been sent, thank you for reaching out!");
         }).catch((error) => {
             console.error(error);
@@ -175,29 +174,36 @@ export default function Home() {
                         If you would like to contact me, please fill out the form below.
                     </span>
                 </p>
-                <form className="flex flex-col gap-5 w-5/6 md:w-1/2 mx-auto" onSubmit={(e) => submitEmailInfo(e)}>
-                    <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
-                        Name
-                    </label>
-                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="text" onChange={(e) => setContactName(e.target.value)} disabled={disableInputs} />
-                    <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
-                        Email
-                    </label>
-                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="email" onChange={(e) => setContactEmail(e.target.value)} disabled={disableInputs} />
-                    <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
-                        Message
-                    </label>
-                    <textarea className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" onChange={(e) => setContactMessage(e.target.value)} disabled={disableInputs} />
-                    {disableInputs ?
-                        <button className="text-text-dark text-xl md:text-2xl disabled:text-slate-600 disabled:bg-accent-light/75 bg-accent-light dark:bg-accent-dark/75 rounded-lg p-2" disabled>
+                {emailSent ?
+                    <div className="flex flex-col justify-center align-middle gap-10">
+                        <h2 className="text-text-light dark:text-text-dark text-4xl md:text-6xl text-center">
+                            Thank you for reaching out!
+                        </h2>
+                        <h2 className="text-transparent text-7xl text-center" style={{textShadow: '0 0 orange'}}>
+                            ✔️
+                        </h2>
+                        <p className="text-text-light dark:text-text-dark text-center text-lg md:text-xl py-5">
+                            I will get back to you as soon as I can.
+                        </p>
+                    </div>
+                    : <form className="flex flex-col gap-5 w-5/6 md:w-1/2 mx-auto" onSubmit={(e) => submitEmailInfo(e)}>
+                        <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
+                            Name
+                        </label>
+                        <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="text" onChange={(e) => setContactName(e.target.value)} disabled={disableInputs} />
+                        <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
+                            Email
+                        </label>
+                        <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="email" onChange={(e) => setContactEmail(e.target.value)} disabled={disableInputs} />
+                        <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
+                            Message
+                        </label>
+                        <textarea className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" onChange={(e) => setContactMessage(e.target.value)} disabled={disableInputs} />
+                        <button className="text-text-dark text-xl md:text-2xl disabled:text-slate-600 disabled:bg-accent-light/75 bg-accent-light dark:bg-accent-dark/75 rounded-lg p-2" disabled={disableInputs}>
                             Submit
                         </button>
-                        :
-                        <button className="text-text-dark text-xl md:text-2xl disabled:text-slate-600 disabled:bg-accent-light/75 disabled:animate-bounce bg-accent-light dark:bg-accent-dark/75 rounded-lg p-2" disabled={sendingEmail}>
-                            Submit
-                        </button>
-                    }
-                </form>
+                    </form>
+                }
             </div>
         </>
     )
