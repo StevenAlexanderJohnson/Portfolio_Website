@@ -1,5 +1,6 @@
 import { useParallax } from "react-scroll-parallax"
 import ffga from "../assets/FFGA.png";
+import { FormEvent, useState } from "react";
 
 export interface Resource {
     title: string;
@@ -10,6 +11,11 @@ export interface Resource {
     parallax_ref: React.RefObject<HTMLLIElement>;
 }
 export default function Home() {
+    const [contactName, setContactName] = useState('');
+    const [contactEmail, setContactEmail] = useState('');
+    const [contactMessage, setContactMessage] = useState('');
+    const [sendingEmail, setSendingEmail] = useState(false);
+
     const parallax = useParallax<HTMLDivElement>({
         startScroll: 0,
         endScroll: 1000,
@@ -20,6 +26,31 @@ export default function Home() {
     let aboutMe = useParallax<HTMLHeadingElement>({
         translateY: [-100, 20]
     });
+
+    const submitEmailInfo = (e: FormEvent) => {
+        e.preventDefault();
+        setSendingEmail(true);
+        fetch('https://m7yijzqcz3.execute-api.us-east-1.amazonaws.com/Prod/email', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: contactName,
+                fromAddress: contactEmail,
+                message: contactMessage
+            })
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error("Error sending email");
+            }
+            setSendingEmail(false);
+            alert("The email has been sent, thank you for reaching out!");
+        }).catch((error) => {
+            console.error(error);
+            alert("There was an error sending the email, please try again later.");
+        });
+    }
 
     const project_list: Resource[] = [
         {
@@ -137,30 +168,25 @@ export default function Home() {
                 <h2 className="text-text-light dark:text-text-dark text-4xl md:text-6xl text-center" id="contact">
                     Contact <span className="text-accent-light dark:text-accent-dark">Me</span>
                 </h2>
-                <p className="text-center">
-                    <span>
-                        The contact form is still under construction. If you would like to contact me, please reach out through <a href="https://linkedin.com/in/steven-alexander-johnson" target="_blank" className="underline underline-offset-4 text-accent-light dark:text-accent-dark text-xl">LinkedIn</a>.
-                    </span>
-                </p>
                 <p className="text-text-light dark:text-text-dark text-center text-lg md:text-xl py-5">
-                    <span className="line-through">
+                    <span>
                         If you would like to contact me, please fill out the form below.
                     </span>
                 </p>
-                <form className="flex flex-col gap-5 w-5/6 md:w-1/2 mx-auto">
+                <form className="flex flex-col gap-5 w-5/6 md:w-1/2 mx-auto" onSubmit={(e) => submitEmailInfo(e)}>
                     <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
                         Name
                     </label>
-                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="text" disabled />
+                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="text" onChange={(e) => setContactName(e.target.value)} />
                     <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
                         Email
                     </label>
-                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="email" disabled />
+                    <input className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" type="email" onChange={(e) => setContactEmail(e.target.value)} />
                     <label className="text-text-light dark:text-text-dark text-xl md:text-2xl">
                         Message
                     </label>
-                    <textarea className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" disabled />
-                    <button className="text-text-light dark:text-text-dark text-xl md:text-2xl disabled:text-slate-600 bg-accent-light/75 dark:bg-accent-dark/75 rounded-lg p-2 hover:cursor-not-allowed" disabled>
+                    <textarea className="text-text-light dark:text-text-dark text-xl md:text-2xl bg-secondary-light dark:bg-secondary-dark rounded-lg p-2" onChange={(e) => setContactMessage(e.target.value)} />
+                    <button className="text-text-dark text-xl md:text-2xl disabled:text-slate-600 disabled:bg-accent-light/75 disabled:animate-bounce bg-accent-light dark:bg-accent-dark/75 rounded-lg p-2" disabled={sendingEmail}>
                         Submit
                     </button>
                 </form>
