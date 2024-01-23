@@ -2,6 +2,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
 import construction from '../assets/construction barrier.png';
+import linkedin from '../assets/LinkedIn.png';
+import github from '../assets/github.png';
 
 export default function NavbarWrapper() {
     const { loginWithRedirect, isAuthenticated, logout, isLoading } = useAuth0();
@@ -20,6 +22,14 @@ export default function NavbarWrapper() {
                     Steven Johnson
                 </button>
                 <div className="flex justify-between md:flex-row gap-2 md:gap-7 lg:gap-10">
+                    <div className="flex flex-row gap-3">
+                    <a href="https://www.linkedin.com/in/steven-alexander-johnson/" target="_blank">
+                        <img src={linkedin} alt="linkedin" className="w-8 h-8" />
+                    </a>
+                    <a href="https://github.com/StevenAlexanderJohnson/" target="_blank">
+                        <img src={github} alt="linkedin" className="w-8 h-8" />
+                    </a>
+                    </div>
                     <button className="hover:text-accent-light dark:hover:text-accent-dark drop-shadow-lg transition-colors duration-100" onClick={() => {
                         setTimeout(() => {
                             document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
